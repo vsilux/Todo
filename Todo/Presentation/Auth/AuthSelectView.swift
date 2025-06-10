@@ -6,18 +6,10 @@
 //
 
 import SwiftUI
-import SimpleRoute
 import Combine
 
-struct AuthView: View {
-    @StateObject private var viewModel: AuthViewModel
+struct AuthSelectView: View {
     @Environment(\.router) private var router
-    
-    init(viewModel: AuthViewModel) {
-        _viewModel = StateObject(
-            wrappedValue: viewModel
-        )
-    }
         
     var body: some View {
         VStack(spacing: 0) {
@@ -29,9 +21,7 @@ struct AuthView: View {
             Spacer()
                 
             Button {
-                viewModel.onLoginTapped { route in
-                    router.navigate(to: route)
-                }
+                router.navigate(to: .login)
             } label: {
                 Text(LocalizedKey.Login.title.localized)
                     .font(.headline)
@@ -46,9 +36,7 @@ struct AuthView: View {
             .padding()
                 
             Button {
-                viewModel.onSignupTapped { route in
-                    router.navigate(to: route)
-                }
+                router.navigate(to: .signup)
             } label: {
                 Text(LocalizedKey.Signup.title.localized)
                     .font(.headline)
@@ -67,5 +55,5 @@ struct AuthView: View {
 }
 
 #Preview {
-    AuthView(viewModel: AuthViewModel(authService: MockAuthService()))
+    AuthSelectView()
 }

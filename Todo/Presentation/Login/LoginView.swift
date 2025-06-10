@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SimpleRoute
 
 struct LoginView: View {
     private let textFieldBottomPadding: CGFloat = 10
@@ -79,7 +78,7 @@ struct LoginView: View {
             
             Button {
                 viewModel.login {
-                    router.pop()
+                    router.navigateBack()
                 }
             } label: {
                 if viewModel.isLoading {

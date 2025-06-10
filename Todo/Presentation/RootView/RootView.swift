@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SimpleRoute
 
 struct RootView: View {
     @StateObject private var router: Router = Router()
@@ -31,15 +30,13 @@ struct RootView: View {
                 }
                 VStack {
                     if viewModel.user != nil {
-                        HomeView(viewModel: viewModel.getHomeViewModel())
+                        HomeView()
                     } else {
-                        AuthView(
-                            viewModel: viewModel.getAuthViewModel()
-                        )
+                        AuthSelectView()
                     }
                 }
             }
-            .navigationDestination(for: AnyRoute.self) { route in
+            .navigationDestination(for: Route.self) { route in
                 route.destination
             }
             .onAppear(perform: viewModel.checkIsAuthorized)

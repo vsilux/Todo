@@ -6,16 +6,15 @@
 //
 
 import Foundation
-import SimpleRoute
 
 class HomeViewModel: ObservableObject {
-    let user: User
     
-    init(user: User) {
-        self.user = user
+    private let userStore: UserStore
+    
+    init(userStore: UserStore) {
+        self.userStore = userStore
+        
     }
     
-    func onSettingsTapped(_ closure: @escaping RouteHandler) {
-        closure(SettingsRoute())
-    }
+    
 }

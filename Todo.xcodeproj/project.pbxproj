@@ -11,7 +11,6 @@
 		9D1D9C522DF083E5002C437D /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D1D9C512DF083E5002C437D /* FirebaseDatabase */; };
 		9D1D9C542DF083E5002C437D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9D1D9C532DF083E5002C437D /* FirebaseFirestore */; };
 		9D1D9C592DF0A467002C437D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D1D9C582DF0A467002C437D /* FirebaseAuth */; };
-		9D7FFCBC2DF7075700922AC7 /* SimpleRoute in Frameworks */ = {isa = PBXBuildFile; productRef = 9D7FFCBB2DF7075700922AC7 /* SimpleRoute */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +63,6 @@
 				9D1D9C502DF083E5002C437D /* FirebaseCore in Frameworks */,
 				9D1D9C542DF083E5002C437D /* FirebaseFirestore in Frameworks */,
 				9D1D9C592DF0A467002C437D /* FirebaseAuth in Frameworks */,
-				9D7FFCBC2DF7075700922AC7 /* SimpleRoute in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +127,6 @@
 				9D1D9C512DF083E5002C437D /* FirebaseDatabase */,
 				9D1D9C532DF083E5002C437D /* FirebaseFirestore */,
 				9D1D9C582DF0A467002C437D /* FirebaseAuth */,
-				9D7FFCBB2DF7075700922AC7 /* SimpleRoute */,
 			);
 			productName = Todo;
 			productReference = 9D1D9C032DF05A52002C437D /* Todo.app */;
@@ -215,7 +212,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9D1D9C4E2DF083E5002C437D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				9D7FFCBA2DF7075700922AC7 /* XCRemoteSwiftPackageReference "SimpleRoute" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9D1D9C042DF05A52002C437D /* Products */;
@@ -590,14 +586,6 @@
 				minimumVersion = 11.14.0;
 			};
 		};
-		9D7FFCBA2DF7075700922AC7 /* XCRemoteSwiftPackageReference "SimpleRoute" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vsilux/SimpleRoute.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.6;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -620,11 +608,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9D1D9C4E2DF083E5002C437D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		9D7FFCBB2DF7075700922AC7 /* SimpleRoute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9D7FFCBA2DF7075700922AC7 /* XCRemoteSwiftPackageReference "SimpleRoute" */;
-			productName = SimpleRoute;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

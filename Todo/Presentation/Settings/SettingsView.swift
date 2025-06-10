@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SimpleRoute
 
 struct SettingsView: View {
     @Environment(\.router) private var router: Router
@@ -26,7 +25,7 @@ struct SettingsView: View {
             Section {
                 Button(LocalizedKey.Settings.logoutButtonTitle.localized) {
                     viewModel.logout {
-                        router.popToRoot()
+                        router.navigateBackToRoot()
                     }
                 }
             }

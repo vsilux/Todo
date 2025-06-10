@@ -6,29 +6,29 @@
 //
 
 import SwiftUI
-import SimpleRoute
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     @Environment(\.router) private var router: Router
     
-    init(viewModel: HomeViewModel) {
+    init() {
+        @Environment(\.dependancyContainer) var container
         _viewModel = StateObject(
-            wrappedValue: viewModel
+            wrappedValue: HomeViewModel(
+                userStore: container.userStore
+            )
         )
     }
     
     var body: some View {
         VStack {
-            Text("User name: \(viewModel.user.displayName ?? "Unknown")")
+            Text("User name: Unknown")
                 .navigationTitle("Home")
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.onSettingsTapped { route in
-                        router.navigate(to: route)
-                    }
+                    router.navigate(to: .settings)
                 } label: {
                     Image(systemName: "gear")
                         .foregroundColor(.primary)
@@ -40,6 +40,6 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView(viewModel: HomeViewModel(user: .dummy))
+        HomeView()
     }
 }

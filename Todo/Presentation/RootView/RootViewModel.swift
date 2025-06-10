@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SimpleRoute
 
 class RootViewModel: ObservableObject {
     private let authService: AuthService
@@ -25,14 +24,5 @@ class RootViewModel: ObservableObject {
             self.user = self.authService.user
             self.isLoading = false
         }
-    }
-    
-    func getHomeViewModel() -> HomeViewModel {
-        // Safe to force unwrap since this should only be called when user exists
-        return HomeViewModel(user: user!)
-    }
-        
-    func getAuthViewModel() -> AuthViewModel {
-        return AuthViewModel(authService: authService)
     }
 }
