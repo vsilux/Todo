@@ -2,6 +2,8 @@
 
 ### Xcode ###
 ## User settings
+*.xcuserstate
+project.xcworkspace/
 xcuserdata/
 
 ### Xcode Patch ###
