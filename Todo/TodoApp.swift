@@ -22,11 +22,11 @@ struct TodoApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    let authService = FirebaseAuthService()
+    let dependencyContainer = DefaultDependencyContainer()
     
     var body: some Scene {
         WindowGroup {
-            RootView(viewModel: RootViewModel(authService: authService))
-        }
+            RootView()
+        }.environment(\.dependancyContainer, dependencyContainer)
     }
 }

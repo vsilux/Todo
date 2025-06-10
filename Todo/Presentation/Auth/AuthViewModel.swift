@@ -24,10 +24,10 @@ class AuthViewModel: ObservableObject {
     }
     
     func onLoginTapped(_ closure: @escaping RouteHandler) {
-        closure(LoginRoute(authService: authService))
+        closure(LoginRoute())
     }
     
     func onSignupTapped(_ closure: @escaping RouteHandler) {
-        closure(SignupRoute(authService: authService))
+        closure(SignupRoute())
     }
 }

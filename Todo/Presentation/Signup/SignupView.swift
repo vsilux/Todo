@@ -11,12 +11,19 @@ import SwiftUI
 struct SignupView: View {
     private let textFieldBottomPadding: CGFloat = 10
     private let buttonTopPadding: CGFloat = 40
+    
     @StateObject private var viewModel: SignupViewModel
     @FocusState private var signupInFocus: SignupViewModel.Focus?
+    @Environment(
+        \.dependancyContainer
+    ) private var dependancyContainer: DependencyContainer
     
-    init(viewModel: SignupViewModel) {
+    init() {
+        @Environment(\.dependancyContainer) var container
         _viewModel = StateObject(
-            wrappedValue: viewModel
+            wrappedValue: SignupViewModel(
+                signupUseCase: container.signupUseCase,
+            )
         )
     }
     
@@ -39,7 +46,10 @@ struct SignupView: View {
                 ErrorMessageButton(
                     errorMessageKey: $viewModel.email.errorMessageKey
                 )
-                .padding(.trailing, Constants.textFieldErrorButtonTrailingPadding)
+                .padding(
+                    .trailing,
+                    Constants.textFieldErrorButtonTrailingPadding
+                )
             }
             .padding(.bottom, textFieldBottomPadding)
             
@@ -60,7 +70,10 @@ struct SignupView: View {
                 ErrorMessageButton(
                     errorMessageKey: $viewModel.password.errorMessageKey
                 )
-                .padding(.trailing, Constants.textFieldErrorButtonTrailingPadding)
+                .padding(
+                    .trailing,
+                    Constants.textFieldErrorButtonTrailingPadding
+                )
             }
             .padding(.bottom, textFieldBottomPadding)
 
@@ -77,7 +90,10 @@ struct SignupView: View {
                 ErrorMessageButton(
                     errorMessageKey: $viewModel.passwordConfirmation.errorMessageKey
                 )
-                .padding(.trailing, Constants.textFieldErrorButtonTrailingPadding)
+                .padding(
+                    .trailing,
+                    Constants.textFieldErrorButtonTrailingPadding
+                )
             }
             
             ZStack {
@@ -130,15 +146,6 @@ extension SignupView {
 
 #Preview {
     NavigationStack {
-        SignupView(
-            viewModel: SignupViewModel(
-                sigupUseCase: DefaultSignupUseCase(
-                    authService: MockAuthService(
-                        signupClosure: { _, _ in
-                            throw AuthServiceError.invalidEmail
-                        })
-                )
-            )
-        )
+        SignupView()
     }
 }

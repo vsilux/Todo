@@ -8,17 +8,21 @@
 import Foundation
 
 class SettingsViewModel: ObservableObject {
-    private let authService: AuthService
+    private let logoutUseCase: LogoutUseCase
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(logoutUseCase: LogoutUseCase) {
+        self.logoutUseCase = logoutUseCase
     }
     
     func logout(_ completion: @escaping () -> Void) {
         Task {
-            await authService.logout()
-            await MainActor.run {
-                completion()
+            do {
+                try await logoutUseCase.execute()
+                await MainActor.run {
+                    completion()
+                }
+            } catch {
+                print("Error during logout: \(error)")
             }
         }
     }

@@ -15,9 +15,12 @@ struct LoginView: View {
     @Environment(\.router) private var router
     @FocusState private var signupInFocus: LoginViewModel.Focus?
     
-    init(viewModel: LoginViewModel) {
+    init() {
+        @Environment(\.dependancyContainer) var container
         _viewModel = StateObject(
-            wrappedValue: viewModel
+            wrappedValue: LoginViewModel(
+                loginUseCase: container.loginUseCase
+            )
         )
     }
     
@@ -112,16 +115,6 @@ struct LoginView: View {
 
 #Preview {
     NavigationStack {
-        LoginView(
-            viewModel: LoginViewModel(
-                loginUseCase: DefaultLoginUseCase(
-                    authService: MockAuthService(
-                        loginClosure: { _, _ in
-                            throw AuthServiceError.invalidEmail
-                        }
-                    )
-                )
-            )
-        )
+        LoginView()
     }
 }

@@ -13,27 +13,26 @@ enum RouteId: Hashable {
     case login
     case signup
     case home
+    case settings
 }
 
 @RouteModel
 struct LoginRoute: Route {
     var id: RouteId { .login }
-    let authService: AuthService
     
     @ViewBuilder
     var destination: some View {
-        LoginView(viewModel: LoginViewModel(loginUseCase: DefaultLoginUseCase(authService: authService)))
+        LoginView()
     }
 }
 
 @RouteModel
 struct SignupRoute: Route {
     var id: RouteId { .signup }
-    let authService: AuthService
     
     @ViewBuilder
     var destination: some View {
-        SignupView(viewModel: SignupViewModel(sigupUseCase: DefaultSignupUseCase(authService: authService)))
+        SignupView()
     }
 }
 
@@ -50,26 +49,10 @@ struct HomeRoute: Route {
 
 @RouteModel
 struct SettingsRoute: Route {
-    var id: RouteId { .home } // Assuming settings is part of home for simplicity
-    let authService: AuthService
+    var id: RouteId { .settings } // Assuming settings is part of home for simplicity
     
     @ViewBuilder
     var destination: some View {
-        SettingsView(viewModel: SettingsViewModel(authService: authService))
+        SettingsView()
     }
 }
-
-//extension Route {
-//    @ViewBuilder
-//    var destination: some View {
-//        switch self {
-//        case .login(let loginService):
-//            LoginView(viewModel: LoginViewModel(loginService: loginService))
-//        case .signup(let signupService):
-//            SignupView(viewModel: SignupViewModel(signupService: signupService))
-//        case .home:
-//            Text("Home View") // Replace with actual home view
-//        }
-//    }
-//}
-

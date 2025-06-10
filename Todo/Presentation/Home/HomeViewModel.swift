@@ -16,10 +16,6 @@ class HomeViewModel: ObservableObject {
     }
     
     func onSettingsTapped(_ closure: @escaping RouteHandler) {
-        closure(
-            SettingsRoute(
-                authService: FirebaseAuthService()
-            )
-        )
+        closure(SettingsRoute())
     }
 }

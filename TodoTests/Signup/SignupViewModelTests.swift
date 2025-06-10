@@ -163,6 +163,6 @@ final class SignupViewModelTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createSUT(authService: AuthService = MockAuthService()) -> SignupViewModel {
-        SignupViewModel(sigupUseCase: DefaultSignupUseCase(authService: authService))
+        SignupViewModel(signupUseCase: DefaultSignupUseCase(authService: authService))
     }
 }

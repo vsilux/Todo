@@ -10,12 +10,14 @@ import SimpleRoute
 
 struct SettingsView: View {
     @Environment(\.router) private var router: Router
-    
     @StateObject private var viewModel: SettingsViewModel
     
-    init(viewModel: SettingsViewModel) {
+    init() {
+        @Environment(\.dependancyContainer) var container
         _viewModel = StateObject(
-            wrappedValue: viewModel
+            wrappedValue: SettingsViewModel(
+                logoutUseCase: container.logoutUseCase
+            )
         )
     }
     
@@ -34,7 +36,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(
-        viewModel: SettingsViewModel(authService: MockAuthService())
-    )
+    SettingsView()
 }

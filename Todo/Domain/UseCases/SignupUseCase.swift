@@ -13,12 +13,20 @@ protocol SignupUseCase {
 
 class DefaultSignupUseCase: SignupUseCase {
     private let authService: AuthService
+    private let userStore: UserStore
     
-    init(authService: AuthService) {
+    init(
+        authService: AuthService,
+        userStore: UserStore
+    ) {
         self.authService = authService
+        self.userStore = userStore
     }
     
+    @discardableResult
     func execute(email: String, password: String) async throws -> User {
-        return try await authService.signup(email: email, password: password)
+        let user = try await authService.signup(email: email, password: password)
+        userStore.store(user)
+        return user
     }
 }

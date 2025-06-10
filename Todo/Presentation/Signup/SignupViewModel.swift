@@ -15,10 +15,10 @@ class SignupViewModel: ObservableObject {
     @Published var focus: Focus? = .email
     @Published var isLoading: Bool = false
     private var subscriptions = Set<AnyCancellable>()
-    private let sigupUseCase: SignupUseCase
+    private let signupUseCase: SignupUseCase
     
-    init(sigupUseCase: SignupUseCase) {
-        self.sigupUseCase = sigupUseCase
+    init(signupUseCase: SignupUseCase) {
+        self.signupUseCase = signupUseCase
         email.setupErrorClearingOnValueEditing()
         password.setupErrorClearingOnValueEditing()
         passwordConfirmation.setupErrorClearingOnValueEditing()
@@ -48,7 +48,7 @@ class SignupViewModel: ObservableObject {
             }
             Task {
                 do {
-                    _ = try await sigupUseCase.execute(
+                    _ = try await signupUseCase.execute(
                         email: email.value,
                         password: password.value
                     )

@@ -13,8 +13,13 @@ struct RootView: View {
     @StateObject private var router: Router = Router()
     @StateObject private var viewModel: RootViewModel
     
-    init(viewModel: RootViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init() {
+        @Environment(\.dependancyContainer) var container
+        _viewModel = StateObject(
+            wrappedValue: RootViewModel(
+                authService: container.authService,
+            )
+        )
     }
     
     var body: some View {
@@ -45,9 +50,5 @@ struct RootView: View {
 }
 
 #Preview {
-    RootView(
-        viewModel: RootViewModel(
-            authService: MockAuthService(),
-        )
-    )
+    RootView()
 }
