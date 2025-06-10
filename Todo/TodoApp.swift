@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import SimpleRoute
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -21,9 +22,11 @@ struct TodoApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    let authService = FirebaseAuthService()
+    
     var body: some Scene {
         WindowGroup {
-            AddObjectiveView()
+            RootView(viewModel: RootViewModel(authService: authService))
         }
     }
 }

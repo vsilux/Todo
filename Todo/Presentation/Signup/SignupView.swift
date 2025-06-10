@@ -1,21 +1,20 @@
 //
-//  LoginView.swift
+//  SignupView.swift
 //  Todo
 //
-//  Created by Illia Suvorov on 04.06.2025.
+//  Created by Illia Suvorov on 05.06.2025.
 //
 
+import Foundation
 import SwiftUI
-import SimpleRoute
 
-struct LoginView: View {
+struct SignupView: View {
     private let textFieldBottomPadding: CGFloat = 10
+    private let buttonTopPadding: CGFloat = 40
+    @StateObject private var viewModel: SignupViewModel
+    @FocusState private var signupInFocus: SignupViewModel.Focus?
     
-    @StateObject private var viewModel: LoginViewModel
-    @Environment(\.router) private var router
-    @FocusState private var signupInFocus: LoginViewModel.Focus?
-    
-    init(viewModel: LoginViewModel) {
+    init(viewModel: SignupViewModel) {
         _viewModel = StateObject(
             wrappedValue: viewModel
         )
@@ -48,6 +47,9 @@ struct LoginView: View {
                 SecureField(
                     LocalizedKey.Signup.password.localized,
                     text: $viewModel.password.value,
+                    onCommit: {
+                        viewModel.focus = .confirmPassword
+                    }
                 )
                 .submitLabel(.next)
                 .textContentType(.none)
@@ -61,46 +63,54 @@ struct LoginView: View {
                 .padding(.trailing, Constants.textFieldErrorButtonTrailingPadding)
             }
             .padding(.bottom, textFieldBottomPadding)
-            
-            VStack(alignment: .leading) {
-                if let errorMessageKey = viewModel.errorMessageKey {
-                    Text(LocalizedStringKey(errorMessageKey))
-                        .font(.caption)
-                        .foregroundColor(.red)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .padding(.bottom, 4)
-                }
+
+            ZStack {
+                SecureField(
+                    LocalizedKey.Signup.passwordConfirmation.localized,
+                    text: $viewModel.passwordConfirmation.value
+                )
+                .textContentType(.none)
+                .frame(height: Constants.textFieldHeight)
+                .modifier(TextInputModifier())
+                .focused($signupInFocus, equals: .confirmPassword)
+                
+                ErrorMessageButton(
+                    errorMessageKey: $viewModel.passwordConfirmation.errorMessageKey
+                )
+                .padding(.trailing, Constants.textFieldErrorButtonTrailingPadding)
             }
-            .frame(maxWidth: .infinity, maxHeight: 32)
             
-            Button {
-                viewModel.login {
-                    router.pop()
-                }
-            } label: {
-                if viewModel.isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .tint(.white)
-                        .frame(maxWidth: .infinity)
-                } else {
-                    Text(LocalizedKey.Login.loginButtonTitle.localized)
+            ZStack {
+                Button {
+                    Task {
+                        await viewModel.signup()
+                    }
+                } label: {
+                    Text(LocalizedKey.Signup.signupButtonTitle.localized)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                 }
+                .frame(height: Constants.textFieldHeight)
+                .foregroundColor(.white)
+                .background(
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(.mint)
+                )
+                .opacity(viewModel.isLoading ? 0.0 : 1)
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(
+                            maxHeight: Constants.textFieldHeight,
+                            alignment: .center
+                        )
+                }
             }
-            .frame(height: Constants.textFieldHeight)
-            .foregroundColor(.white)
-            .disabled(viewModel.isLoading)
-            .background(
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(.mint)
-            )
-                
+            .padding(.top, buttonTopPadding)
         }
         .padding()
-        .navigationTitle(LocalizedKey.Login.title.localized)
+        .navigationTitle(LocalizedKey.Signup.title.localized)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: signupInFocus) { _, newValue in
             viewModel.focus = newValue
@@ -110,16 +120,23 @@ struct LoginView: View {
     }
 }
 
+extension SignupView {
+    enum SignupFocusable: Hashable {
+        case email
+        case password
+        case confirmPassword
+    }
+}
+
 #Preview {
     NavigationStack {
-        LoginView(
-            viewModel: LoginViewModel(
-                loginUseCase: DefaultLoginUseCase(
+        SignupView(
+            viewModel: SignupViewModel(
+                sigupUseCase: DefaultSignupUseCase(
                     authService: MockAuthService(
-                        loginClosure: { _, _ in
+                        signupClosure: { _, _ in
                             throw AuthServiceError.invalidEmail
-                        }
-                    )
+                        })
                 )
             )
         )

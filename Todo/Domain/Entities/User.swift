@@ -7,6 +7,16 @@
 
 import Foundation
 
-//struct User: Codable, Identifiable {
-//    
-//}
+struct User: Identifiable {
+    var id: String { return uid }
+    
+    var uid: String
+    var displayName: String?
+    var photoURL: URL?
+    var email: String?
+    var phoneNumber: String?
+}
+
+extension User {
+    static let dummy = User(uid: "dummy")
+}
