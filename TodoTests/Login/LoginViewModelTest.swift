@@ -48,7 +48,7 @@ final class LoginViewModelTest: XCTestCase {
     // MARK: - Helper Methods
     
     private func createSUT(authService: AuthService = MockAuthService()) -> LoginViewModel {
-        LoginViewModel(loginUseCase: DefaultLoginUseCase(authService: authService))
+        LoginViewModel(loginUseCase: DefaultLoginUseCase(authService: authService, userStore: DefaultUserStore()))
     }
     
 }

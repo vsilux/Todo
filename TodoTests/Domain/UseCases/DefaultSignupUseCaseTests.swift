@@ -12,27 +12,28 @@ import Combine
 
 final class DefaultSignupUseCaseTests: XCTestCase {
     
-    func testSuccessLogin() async throws {
+    func testSuccessSigup() async throws {
+        let userStore = DefaultUserStore()
         let mockAuthService = MockAuthService(
             signupClosure: { email, password in
                 User.dummy
             }
         )
-        let sut = DefaultSignupUseCase(authService: mockAuthService)
+        let sut = DefaultSignupUseCase(authService: mockAuthService, userStore: userStore)
         
-        let user = try await sut.execute(email: "test@email.com", password: "password")
+        try await sut.execute(email: "test@email.com", password: "password")
         
-        XCTAssertEqual(user.uid, User.dummy.uid, "User should match the dummy user")
+        XCTAssertEqual(userStore.currentUser?.uid, User.dummy.uid, "User should match the dummy user")
     }
     
-    func testFailureLogin() async throws {
+    func testFailureSignup() async throws {
         let mockAuthService = MockAuthService(
             signupClosure: { _, _ in
                 throw AuthServiceError.invalidEmail
             }
         )
         
-        let sut = DefaultSignupUseCase(authService: mockAuthService)
+        let sut = DefaultSignupUseCase(authService: mockAuthService, userStore: DefaultUserStore())
         do {
             _ = try await sut.execute(email: "email", password: "password")
             XCTFail("Expected to throw invalidEmail error, but it didn't")

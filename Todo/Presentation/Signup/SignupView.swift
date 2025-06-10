@@ -14,9 +14,6 @@ struct SignupView: View {
     
     @StateObject private var viewModel: SignupViewModel
     @FocusState private var signupInFocus: SignupViewModel.Focus?
-    @Environment(
-        \.dependancyContainer
-    ) private var dependancyContainer: DependencyContainer
     
     init() {
         @Environment(\.dependancyContainer) var container
