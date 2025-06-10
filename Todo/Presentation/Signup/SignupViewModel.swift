@@ -53,7 +53,7 @@ class SignupViewModel: ObservableObject {
                         password: password.value
                     )
                 } catch AuthServiceError.emailAlreadyInUse {
-                    email.errorMessageKey = LocalizedKey.Signup.Error.emailAlreadyInUse
+                    email.errorMessageKey = LocalizedKey.Error.emailAlreadyInUse
                 } catch {
                     print(error)
                 }
@@ -69,9 +69,9 @@ class SignupViewModel: ObservableObject {
         do {
             try EmailInputValidator().validate(email.value)
         } catch EmailInputValidator.Error.emptyEmail {
-            email.errorMessageKey = LocalizedKey.Signup.Error.emailEmpty
+            email.errorMessageKey = LocalizedKey.Error.emailEmpty
         } catch EmailInputValidator.Error.invalidEmailFormat {
-            email.errorMessageKey = LocalizedKey.Signup.Error.invalidEmail
+            email.errorMessageKey = LocalizedKey.Error.invalidEmail
         } catch {
             email.errorMessageKey = LocalizedKey.Error.somethingWentWrong
         }
@@ -81,9 +81,9 @@ class SignupViewModel: ObservableObject {
         do {
             try PasswordInputValidator().validate(password.value)
         } catch PasswordInputValidator.Error.emptyPassword {
-            password.errorMessageKey = LocalizedKey.Signup.Error.emptyPassword
+            password.errorMessageKey = LocalizedKey.Error.emptyPassword
         } catch PasswordInputValidator.Error.weakPassword {
-            password.errorMessageKey = LocalizedKey.Signup.Error.weakPassword
+            password.errorMessageKey = LocalizedKey.Error.weakPassword
         } catch {
             password.errorMessageKey = LocalizedKey.Error.somethingWentWrong
         }
@@ -93,9 +93,9 @@ class SignupViewModel: ObservableObject {
         do {
             try PasswordConfirmationInputValidator(password: password.value).validate(passwordConfirmation.value)
         } catch PasswordConfirmationInputValidator.Error.emptyConfirmation {
-            passwordConfirmation.errorMessageKey = LocalizedKey.Signup.Error.emptyPasswordConfirmation
+            passwordConfirmation.errorMessageKey = LocalizedKey.Error.emptyPasswordConfirmation
         } catch PasswordConfirmationInputValidator.Error.passwordsDoNotMatch {
-            passwordConfirmation.errorMessageKey = LocalizedKey.Signup.Error.passwordConfirmationMismatch
+            passwordConfirmation.errorMessageKey = LocalizedKey.Error.passwordConfirmationMismatch
         } catch {
             passwordConfirmation.errorMessageKey = LocalizedKey.Error.somethingWentWrong
         }

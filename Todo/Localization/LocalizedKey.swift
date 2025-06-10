@@ -15,15 +15,6 @@ enum LocalizedKey {
         static let password = "password.placeholder"
         static let passwordConfirmation = "password.confirmation.placeholder"
         static let signupButtonTitle = "signup.button.title"
-        enum Error {
-            static let emailEmpty = "signup.email.empty"
-            static let invalidEmail = "signup.email.invalid"
-            static let emailAlreadyInUse = "signup.email.alreadyInUse"
-            static let emptyPassword = "signup.password.empty"
-            static let weakPassword = "signup.password.weak"
-            static let emptyPasswordConfirmation = "signup.passwordConfirmation.empty"
-            static let passwordConfirmationMismatch = "signup.passwordConfirmation.mismatch"
-        }
     }
     
     enum Login {
@@ -31,11 +22,6 @@ enum LocalizedKey {
         static let email = "email.placeholder"
         static let password = "password.placeholder"
         static let loginButtonTitle = "login.button.title"
-        enum Error {
-            static let operationNotAllowed = "login.operationNotAllowed.message"
-            static let userDisabled = "login.userDisabled.message"
-            static let wrongPassword = "login.wrongPassword.message"
-        }
     }
     
     enum Auth {
@@ -49,6 +35,16 @@ enum LocalizedKey {
     
     enum Error {
         static let somethingWentWrong = "error.somthingWentWrong.message"
+        static let operationNotAllowed = "login.operationNotAllowed.message"
+        static let userDisabled = "login.userDisabled.message"
+        static let wrongPassword = "login.wrongPassword.message"
+        static let emailEmpty = "signup.email.empty"
+        static let invalidEmail = "signup.email.invalid"
+        static let emailAlreadyInUse = "signup.email.alreadyInUse"
+        static let emptyPassword = "signup.password.empty"
+        static let weakPassword = "signup.password.weak"
+        static let emptyPasswordConfirmation = "signup.passwordConfirmation.empty"
+        static let passwordConfirmationMismatch = "signup.passwordConfirmation.mismatch"
     }
 }
 

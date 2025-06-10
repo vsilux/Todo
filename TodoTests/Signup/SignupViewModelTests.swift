@@ -39,7 +39,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.email.errorMessageKey,
-            LocalizedKey.Signup.Error.invalidEmail
+            LocalizedKey.Error.invalidEmail
         )
         
         sut.password.value = "short"
@@ -47,7 +47,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.password.errorMessageKey,
-            LocalizedKey.Signup.Error.weakPassword
+            LocalizedKey.Error.weakPassword
         )
         
         sut.passwordConfirmation.value = "mismatched password"
@@ -55,7 +55,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.passwordConfirmation.errorMessageKey,
-            LocalizedKey.Signup.Error.passwordConfirmationMismatch
+            LocalizedKey.Error.passwordConfirmationMismatch
         )
     }
 
@@ -67,7 +67,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.email.errorMessageKey,
-            LocalizedKey.Signup.Error.emailEmpty
+            LocalizedKey.Error.emailEmpty
         )
         
         sut.email.value = "invalid email"
@@ -75,7 +75,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.email.errorMessageKey,
-            LocalizedKey.Signup.Error.invalidEmail
+            LocalizedKey.Error.invalidEmail
         )
         
         sut.email.value = "test@email.com"
@@ -92,7 +92,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.password.errorMessageKey,
-            LocalizedKey.Signup.Error.emptyPassword
+            LocalizedKey.Error.emptyPassword
         )
         
         sut.password.value = "12345"
@@ -100,7 +100,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.password.errorMessageKey,
-            LocalizedKey.Signup.Error.weakPassword
+            LocalizedKey.Error.weakPassword
         )
         
         sut.password.value = "strongpassword"
@@ -117,7 +117,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.passwordConfirmation.errorMessageKey,
-            LocalizedKey.Signup.Error.emptyPasswordConfirmation
+            LocalizedKey.Error.emptyPasswordConfirmation
         )
         
         sut.password.value = "password"
@@ -126,7 +126,7 @@ final class SignupViewModelTests: XCTestCase {
         
         XCTAssertEqual(
             sut.passwordConfirmation.errorMessageKey,
-            LocalizedKey.Signup.Error.passwordConfirmationMismatch
+            LocalizedKey.Error.passwordConfirmationMismatch
         )
         
         sut.passwordConfirmation.value = "password"
@@ -148,7 +148,7 @@ final class SignupViewModelTests: XCTestCase {
             description: "Email already in use error"
         )
         sut.email.$errorMessageKey.sink { messageKey in
-            if messageKey == LocalizedKey.Signup.Error.emailAlreadyInUse {
+            if messageKey == LocalizedKey.Error.emailAlreadyInUse {
                 expectation.fulfill()
             }
         }.store(in: &cancellables)

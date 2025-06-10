@@ -43,11 +43,11 @@ class LoginViewModel: ObservableObject {
             do {
                 _ = try await loginUseCase.execute(email: email.value, password: password.value)
             } catch AuthServiceError.operationNotAllowed {
-                await updateErrorMessageKey(LocalizedKey.Login.Error.operationNotAllowed)
+                await updateErrorMessageKey(LocalizedKey.Error.operationNotAllowed)
             } catch AuthServiceError.userDisabled {
-                await updateErrorMessageKey(LocalizedKey.Login.Error.userDisabled)
+                await updateErrorMessageKey(LocalizedKey.Error.userDisabled)
             } catch AuthServiceError.wrongPassword {
-                password.errorMessageKey = LocalizedKey.Login.Error.wrongPassword
+                password.errorMessageKey = LocalizedKey.Error.wrongPassword
             } catch {
                 print(error)
                 await updateErrorMessageKey("login.somthingWentWrong.message")
@@ -64,9 +64,9 @@ class LoginViewModel: ObservableObject {
         do {
             try EmailInputValidator().validate(email.value)
         } catch EmailInputValidator.Error.emptyEmail {
-            email.errorMessageKey = LocalizedKey.Signup.Error.emailEmpty
+            email.errorMessageKey = LocalizedKey.Error.emailEmpty
         } catch EmailInputValidator.Error.invalidEmailFormat {
-            email.errorMessageKey = LocalizedKey.Signup.Error.invalidEmail
+            email.errorMessageKey = LocalizedKey.Error.invalidEmail
         } catch {
             email.errorMessageKey = LocalizedKey.Error.somethingWentWrong
         }
@@ -74,7 +74,7 @@ class LoginViewModel: ObservableObject {
     
     func validatePassword() {
         if password.value.isEmpty {
-            password.errorMessageKey = LocalizedKey.Signup.Error.emptyPassword
+            password.errorMessageKey = LocalizedKey.Error.emptyPassword
         }
     }
     
