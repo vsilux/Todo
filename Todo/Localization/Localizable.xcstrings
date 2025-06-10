@@ -128,6 +128,17 @@
         }
       }
     },
+    "logout.button.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout"
+          }
+        }
+      }
+    },
     "objective.add" : {
       "extractionState" : "manual",
       "localizations" : {

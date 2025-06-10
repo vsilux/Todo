@@ -10,6 +10,7 @@ import Combine
 
 struct AuthSelectView: View {
     @Environment(\.router) private var router
+    @Environment(\.dependancyContainer) var container
         
     var body: some View {
         VStack(spacing: 0) {
@@ -21,7 +22,7 @@ struct AuthSelectView: View {
             Spacer()
                 
             Button {
-                router.navigate(to: .login)
+                router.navigate(to: LoginRoute(dependencyContainer: container))
             } label: {
                 Text(LocalizedKey.Login.title.localized)
                     .font(.headline)
@@ -36,7 +37,7 @@ struct AuthSelectView: View {
             .padding()
                 
             Button {
-                router.navigate(to: .signup)
+                router.navigate(to: SignupRoute(dependencyContainer: container))
             } label: {
                 Text(LocalizedKey.Signup.title.localized)
                     .font(.headline)

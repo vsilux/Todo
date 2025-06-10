@@ -30,7 +30,7 @@ enum LocalizedKey {
     
     enum Settings {
         static let title = "settings.title"
-        static let logoutButtonTitle = "settings.logout.button.title"
+        static let logoutButtonTitle = "logout.button.title"
     }
     
     enum Error {

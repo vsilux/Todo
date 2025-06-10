@@ -14,8 +14,7 @@ struct LoginView: View {
     @Environment(\.router) private var router
     @FocusState private var signupInFocus: LoginViewModel.Focus?
     
-    init() {
-        @Environment(\.dependancyContainer) var container
+    init(container: DependencyContainer) {
         _viewModel = StateObject(
             wrappedValue: LoginViewModel(
                 loginUseCase: container.loginUseCase
@@ -78,7 +77,7 @@ struct LoginView: View {
             
             Button {
                 viewModel.login {
-                    router.navigateBack()
+                    router.popToRoot()
                 }
             } label: {
                 if viewModel.isLoading {
@@ -114,6 +113,6 @@ struct LoginView: View {
 
 #Preview {
     NavigationStack {
-        LoginView()
+        LoginView(container: DefaultDependencyContainer())
     }
 }

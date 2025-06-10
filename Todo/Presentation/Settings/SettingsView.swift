@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import SimpleRoute
 
 struct SettingsView: View {
     @Environment(\.router) private var router: Router
     @StateObject private var viewModel: SettingsViewModel
     
-    init() {
-        @Environment(\.dependancyContainer) var container
+    init(container: DependencyContainer) {
         _viewModel = StateObject(
             wrappedValue: SettingsViewModel(
                 logoutUseCase: container.logoutUseCase
@@ -25,7 +25,7 @@ struct SettingsView: View {
             Section {
                 Button(LocalizedKey.Settings.logoutButtonTitle.localized) {
                     viewModel.logout {
-                        router.navigateBackToRoot()
+                        router.popToRoot()
                     }
                 }
             }
@@ -35,5 +35,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(container: DefaultDependencyContainer())
 }

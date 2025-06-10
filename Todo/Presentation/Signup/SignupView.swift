@@ -15,8 +15,7 @@ struct SignupView: View {
     @StateObject private var viewModel: SignupViewModel
     @FocusState private var signupInFocus: SignupViewModel.Focus?
     
-    init() {
-        @Environment(\.dependancyContainer) var container
+    init(container: DependencyContainer) {
         _viewModel = StateObject(
             wrappedValue: SignupViewModel(
                 signupUseCase: container.signupUseCase,
@@ -143,6 +142,6 @@ extension SignupView {
 
 #Preview {
     NavigationStack {
-        SignupView()
+        SignupView(container: DefaultDependencyContainer())
     }
 }

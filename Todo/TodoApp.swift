@@ -25,7 +25,8 @@ struct TodoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView()
-        }.environment(\.dependancyContainer, dependencyContainer)
+            RootView(container: dependencyContainer)
+                .environment(\.dependancyContainer, dependencyContainer)
+        }
     }
 }

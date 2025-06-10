@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import SimpleRoute
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     @Environment(\.router) private var router: Router
+    @Environment(\.dependancyContainer) var container
     
-    init() {
-        @Environment(\.dependancyContainer) var container
+    init(container: DependencyContainer) {
         _viewModel = StateObject(
             wrappedValue: HomeViewModel(
                 userStore: container.userStore
@@ -28,7 +29,7 @@ struct HomeView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    router.navigate(to: .settings)
+                    router.navigate(to: SettingsRoute(dependencyContainer: container))
                 } label: {
                     Image(systemName: "gear")
                         .foregroundColor(.primary)
@@ -40,6 +41,6 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView()
+        HomeView(container: DefaultDependencyContainer())
     }
 }

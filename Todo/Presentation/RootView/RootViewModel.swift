@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import Combine
 
 class RootViewModel: ObservableObject {
     private let authService: AuthService
-    @Published var user: User?
+    private let userStore: UserStore
     @Published var isLoading: Bool = true
+    @Published var user: User? = nil
     
-    init(authService: AuthService) {
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(authService: AuthService, userStore: UserStore) {
         self.authService = authService
+        self.userStore = userStore
+        userStore.userPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+            self?.user = user
+        }.store(in: &cancellables)
     }
     
     func checkIsAuthorized() {
@@ -21,7 +31,7 @@ class RootViewModel: ObservableObject {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.user = self.authService.user
+            userStore.store(self.authService.user)
             self.isLoading = false
         }
     }

@@ -10,6 +10,7 @@ import Combine
 
 protocol UserStore {
     var currentUser: User? { get }
+    
     var userPublisher: AnyPublisher<User?, Never> { get }
         
     func store(_ user: User?)
